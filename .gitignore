@@ -1,0 +1,66 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Unit test / coverage reports
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Experiment tracking / caches
+wandb/
+.hf_cache/
+
+# Model checkpoints & heavy binaries
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.onnx
+*.npy
+*.npz
+
+# Audio / media files (regenerate from data + scripts)
+*.wav
+*.flac
+*.mp3
+*.ogg
+*.aac
+*.aiff
+*.mp4
+
+# Logs
+*.log
+
+# Generated evaluation outputs (re-run the eval scripts to regenerate)
+*.bak_*
+*.csv
+toy_evaluation/*.json
+toy_evaluation/**/*.json
+toy_evaluation/eval_all/
+toy_evaluation/eval_all_*/
+toy_evaluation/eval_attention/
+toy_evaluation/eval_deep_additivity/
+toy_evaluation/eval_enc_alignment_dist/
+toy_evaluation/separation_compare/chunks/
+toy_evaluation/audio_demo/
+toy_evaluation/audio_mixes/
+
+# OS / editor noise
+.DS_Store
+.idea/
+.vscode/

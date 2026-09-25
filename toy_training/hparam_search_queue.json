@@ -1,0 +1,17 @@
+{
+  "_comment": "Stage-1 coarse grid. Driver applies defaults: epochs=30, limit_train_batches, fast_eval=true, prune=true. Names use dashes (Telegram-Markdown safe).",
+  "trials": [
+    {"name": "c-anchor", "lr": 1e-4, "batch_size": 64, "adv_loss_weight": 0.1,  "mixup_weight": 1.0, "decoder_num_snake_layers": 2},
+    {"name": "c-lr5e-5", "lr": 5e-5, "batch_size": 64, "adv_loss_weight": 0.1,  "mixup_weight": 1.0, "decoder_num_snake_layers": 2},
+    {"name": "c-lr2e-4", "lr": 2e-4, "batch_size": 64, "adv_loss_weight": 0.1,  "mixup_weight": 1.0, "decoder_num_snake_layers": 2},
+    {"name": "c-adv005", "lr": 1e-4, "batch_size": 64, "adv_loss_weight": 0.05, "mixup_weight": 1.0, "decoder_num_snake_layers": 2},
+    {"name": "c-adv02",  "lr": 1e-4, "batch_size": 64, "adv_loss_weight": 0.2,  "mixup_weight": 1.0, "decoder_num_snake_layers": 2},
+    {"name": "c-adv05",  "lr": 1e-4, "batch_size": 64, "adv_loss_weight": 0.5,  "mixup_weight": 1.0, "decoder_num_snake_layers": 2},
+    {"name": "c-mix05",  "lr": 1e-4, "batch_size": 64, "adv_loss_weight": 0.1,  "mixup_weight": 0.5, "decoder_num_snake_layers": 2},
+    {"name": "c-mix20",  "lr": 1e-4, "batch_size": 64, "adv_loss_weight": 0.1,  "mixup_weight": 2.0, "decoder_num_snake_layers": 2},
+    {"name": "c-k1",     "lr": 1e-4, "batch_size": 64, "adv_loss_weight": 0.1,  "mixup_weight": 1.0, "decoder_num_snake_layers": 1},
+    {"name": "c-k3",     "lr": 1e-4, "batch_size": 64, "adv_loss_weight": 0.1,  "mixup_weight": 1.0, "decoder_num_snake_layers": 3},
+    {"name": "c-bs32",   "lr": 1e-4, "batch_size": 32, "adv_loss_weight": 0.1,  "mixup_weight": 1.0, "decoder_num_snake_layers": 2},
+    {"name": "c-bs128",  "lr": 1e-4, "batch_size": 128,"adv_loss_weight": 0.1,  "mixup_weight": 1.0, "decoder_num_snake_layers": 2}
+  ]
+}
