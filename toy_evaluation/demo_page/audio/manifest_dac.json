@@ -1,0 +1,191 @@
+{
+  "model": "dac",
+  "adapter": "dac",
+  "ckpt": null,
+  "sr": 44100,
+  "decode_seed": 1234,
+  "rms_guard_abs": 0.15,
+  "rms_guard_tol": 1.25,
+  "files": {
+    "reconstruction/recon_bass/ground_truth.wav": {
+      "peak": 0.36737060546875,
+      "rms": 0.1340015078253325,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false
+    },
+    "reconstruction/recon_bass/dac.wav": {
+      "peak": 0.3495301306247711,
+      "rms": 0.13303480847453533,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false,
+      "sisdr": 19.947430717996617
+    },
+    "reconstruction/recon_vocals/ground_truth.wav": {
+      "peak": 0.24530029296875,
+      "rms": 0.06674385044803492,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false
+    },
+    "reconstruction/recon_vocals/dac.wav": {
+      "peak": 0.24548779428005219,
+      "rms": 0.06698481610515963,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false,
+      "sisdr": 9.520996057438031
+    },
+    "interpolation/lerp/lerp_bass_other/ideal.wav": {
+      "peak": 0.4121551513671875,
+      "rms": 0.06954634327337346,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false
+    },
+    "interpolation/lerp/lerp_bass_other/dac.wav": {
+      "peak": 0.4321829676628113,
+      "rms": 0.06778247851537698,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false,
+      "sisdr": -26.54814684702147
+    },
+    "interpolation/lerp/lerp_bass_vocals/ideal.wav": {
+      "peak": 0.2157745361328125,
+      "rms": 0.041223679885267574,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false
+    },
+    "interpolation/lerp/lerp_bass_vocals/dac.wav": {
+      "peak": 0.2133520543575287,
+      "rms": 0.03335569618914451,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false,
+      "sisdr": -13.585000892588608
+    },
+    "interpolation/trig/trig_bass_other/ideal.wav": {
+      "peak": 0.4008568525314331,
+      "rms": 0.06384481908322114,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false
+    },
+    "interpolation/trig/trig_bass_other/dac.wav": {
+      "peak": 0.3686623275279999,
+      "rms": 0.042100814332336575,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false,
+      "sisdr": -14.182455504953024
+    },
+    "interpolation/trig/trig_drums_other/ideal.wav": {
+      "peak": 0.7130889892578125,
+      "rms": 0.05044265124635906,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false
+    },
+    "interpolation/trig/trig_drums_other/dac.wav": {
+      "peak": 0.7263399362564087,
+      "rms": 0.032252763565598294,
+      "gain": 1.0,
+      "peak_guarded": false,
+      "loudness_guarded": false,
+      "sisdr": -9.013535522390129
+    },
+    "separation/sep_synth_1/mixture.wav": {
+      "peak": 1.1364585161209106,
+      "rms": 0.27487069455356133,
+      "gain": 0.8359302046876712,
+      "peak_guarded": true,
+      "loudness_guarded": false
+    },
+    "separation/sep_synth_1/ground_truth.wav": {
+      "peak": 0.9504089951515198,
+      "rms": 0.16743708087429762,
+      "gain": 0.9995696640566258,
+      "peak_guarded": true,
+      "loudness_guarded": false
+    },
+    "separation/sep_synth_1/dac.wav": {
+      "peak": 0.9975351691246033,
+      "rms": 0.2411787056922551,
+      "gain": 0.8678060962808837,
+      "peak_guarded": true,
+      "loudness_guarded": true,
+      "sisdr": 4.327090183414168
+    },
+    "separation/sep_synth_1/dac_ceiling.wav": {
+      "peak": 0.996033787727356,
+      "rms": 0.17166229859683077,
+      "gain": 0.9537829054650937,
+      "peak_guarded": true,
+      "loudness_guarded": false,
+      "sisdr": 16.994297608974872
+    },
+    "separation/sep_synth_2/mixture.wav": {
+      "peak": 0.969038188457489,
+      "rms": 0.2110154380277631,
+      "gain": 0.9803535209610326,
+      "peak_guarded": true,
+      "loudness_guarded": false
+    },
+    "separation/sep_synth_2/ground_truth.wav": {
+      "peak": 0.9512577652931213,
+      "rms": 0.16911868834342764,
+      "gain": 0.9986777870951373,
+      "peak_guarded": true,
+      "loudness_guarded": false
+    },
+    "separation/sep_synth_2/dac.wav": {
+      "peak": 0.9993891716003418,
+      "rms": 0.3277279913096925,
+      "gain": 0.6450421265039881,
+      "peak_guarded": true,
+      "loudness_guarded": true,
+      "sisdr": 5.935436951385525
+    },
+    "separation/sep_synth_2/dac_ceiling.wav": {
+      "peak": 0.9834341406822205,
+      "rms": 0.17231424227752096,
+      "gain": 0.9660026642363394,
+      "peak_guarded": true,
+      "loudness_guarded": false,
+      "sisdr": 18.34738590866152
+    },
+    "separation/sep_synth_3/mixture.wav": {
+      "peak": 1.1701046228408813,
+      "rms": 0.2110030649904519,
+      "gain": 0.8118932114749771,
+      "peak_guarded": true,
+      "loudness_guarded": false
+    },
+    "separation/sep_synth_3/ground_truth.wav": {
+      "peak": 0.9501668810844421,
+      "rms": 0.18026433570378375,
+      "gain": 0.9998243665531136,
+      "peak_guarded": true,
+      "loudness_guarded": false
+    },
+    "separation/sep_synth_3/dac.wav": {
+      "peak": 0.9991844296455383,
+      "rms": 0.27543115893787873,
+      "gain": 0.8181006843911627,
+      "peak_guarded": true,
+      "loudness_guarded": true,
+      "sisdr": -3.4698566215837463
+    },
+    "separation/sep_synth_3/dac_ceiling.wav": {
+      "peak": 0.9967783689498901,
+      "rms": 0.18659796717515847,
+      "gain": 0.95307044132672,
+      "peak_guarded": true,
+      "loudness_guarded": false,
+      "sisdr": 17.35358979743633
+    }
+  }
+}

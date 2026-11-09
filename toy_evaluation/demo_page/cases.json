@@ -1,0 +1,112 @@
+{
+  "description": "Demo-page case selection (Experiment 4, R3 W3/Q3). Interpolation and reconstruction cases are selected from the existing 4200-trial interpolation evaluations as the largest universal-vs-strongest-baseline margins (subject to the universal model's own reconstruction being clean). Separation uses in-distribution synthetic mixtures built from the autoencoders' training corpus (VCTK voice + FSD50K/FMA interference, raw sums), selected by the same criterion from a candidate pool (select_synth_cases.py). All clips: 2 s mono, 44.1 kHz.",
+  "models": {
+    "univ": {
+      "adapter": "univ_441",
+      "ckpt": "toy_training/checkpoints/transformer_univ_441_best.pt",
+      "display": "Universal Mixup (Ours)",
+      "env": ".venv"
+    },
+    "same_l": {
+      "adapter": "same-l",
+      "display": "SAME-L",
+      "env": ".venv"
+    },
+    "lin_cae": {
+      "adapter": "lin-cae",
+      "display": "Lin-CAE",
+      "env": "cae_env"
+    },
+    "dac": {
+      "adapter": "dac",
+      "display": "DAC (44 kHz)",
+      "env": ".venv-dac"
+    }
+  },
+  "reconstruction": [
+    {
+      "case": "recon_bass",
+      "track": "011__train__Aimee Norwich - Child",
+      "stem": "bass"
+    },
+    {
+      "case": "recon_vocals",
+      "track": "005__train__Hezekiah Jones - Borrowed Heart",
+      "stem": "vocals"
+    }
+  ],
+  "interpolation": {
+    "lerp": [
+      {
+        "case": "lerp_bass_other",
+        "track": "093__train__Celestial Shore - Die For Us",
+        "stem_a": "bass",
+        "stem_b": "other"
+      },
+      {
+        "case": "lerp_bass_vocals",
+        "track": "036__train__Leaf - Summerghost",
+        "stem_a": "bass",
+        "stem_b": "vocals"
+      }
+    ],
+    "trig": [
+      {
+        "case": "trig_bass_other",
+        "track": "042__train__Grants - PunchDrunk",
+        "stem_a": "bass",
+        "stem_b": "other"
+      },
+      {
+        "case": "trig_drums_other",
+        "track": "054__train__St Vitus - Word Gets Around",
+        "stem_a": "drums",
+        "stem_b": "other"
+      }
+    ]
+  },
+  "separation_synth": [
+    {
+      "case": "sep_synth_1",
+      "voice_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/wav48_silence_trimmed__p308_p308_214_mic2.pt",
+      "other_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/fma_small__065_065234.pt",
+      "other_tag": "fma",
+      "interference": "fma_small__065_065234",
+      "univ_sep_sisdr": 39.16817818046282,
+      "univ_recon_sisdr": 40.51472570952473
+    },
+    {
+      "case": "sep_synth_2",
+      "voice_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/wav48_silence_trimmed__p295_p295_375_mic2.pt",
+      "other_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/fma_small__110_110629.pt",
+      "other_tag": "fma",
+      "interference": "fma_small__110_110629",
+      "univ_sep_sisdr": 32.98794925970673,
+      "univ_recon_sisdr": 35.80430468263006
+    },
+    {
+      "case": "sep_synth_3",
+      "voice_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/wav48_silence_trimmed__p287_p287_062_mic1.pt",
+      "other_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/FSD50K.dev_audio__121477.pt",
+      "other_tag": "fsd50k",
+      "interference": "FSD50K.dev_audio__121477",
+      "univ_sep_sisdr": 29.98771909875318,
+      "univ_recon_sisdr": 30.012478647689168
+    }
+  ],
+  "interp_protocol": {
+    "alphas": [
+      0.0,
+      0.125,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      0.875,
+      1.0
+    ],
+    "gap_seconds": 0.2,
+    "note": "each file concatenates the 9 decoded segments alpha=0..1 (0.2 s silence between); the reference concatenates the ideal audio-domain mixes w1*A + w2*B"
+  }
+}

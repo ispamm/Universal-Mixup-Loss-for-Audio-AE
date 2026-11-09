@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Universal Mixup Loss — Audio Demonstrations</title>
+<style>
+  :root { --ink:#1a1a2e; --acc:#0f6cbd; --soft:#f5f6fa; --line:#d9dbe6; }
+  body { font-family: Georgia, 'Times New Roman', serif; margin: 0; color: var(--ink); background:#fff; }
+  header { background: linear-gradient(135deg,#101a33,#1d2a52); color:#fff; padding:42px 6vw 34px; }
+  header h1 { margin:0 0 10px; font-size: 30px; font-weight:600; letter-spacing:.3px; }
+  header p { margin:4px 0; max-width: 900px; color:#d6ddf3; font-size:15px; line-height:1.55; }
+  header code { background:rgba(13,23,58,.85); color:#aecbff;
+               border:1px solid rgba(174,203,255,.28); }
+  main { padding: 28px 6vw 60px; max-width: 1280px; margin: 0 auto; }
+  h2 { font-size: 21px; margin: 42px 0 6px; border-bottom: 2px solid var(--acc); padding-bottom: 6px; }
+  h2 .num { color: var(--acc); margin-right: 8px; }
+  p.proto { color:#444; font-size: 14.5px; line-height: 1.6; max-width: 980px; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0 8px; }
+  th, td { border: 1px solid var(--line); padding: 10px 12px; vertical-align: top; font-size: 14px; }
+  th { background: var(--soft); font-family: Helvetica, Arial, sans-serif; font-size: 13px; text-align:left; }
+  td.rowhead { font-weight: bold; background:#fafbfd; min-width: 190px; }
+  td.rowhead .sub { font-weight: normal; color: #666; font-size: 12.5px; }
+  audio { width: 230px; height: 34px; display:block; }
+  .sub audio { width: 210px; height: 28px; }
+  .badges { margin-top: 6px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; }
+  .badge { display:inline-block; padding: 2px 8px; border-radius: 10px; background:#eef1f6; color:#173b63; }
+  .badge.best { background:#0f6cbd; color:#fff; font-weight:600; }
+  .badge.bad { background:#fdecea; color:#a4271a; }
+  .badge.na { background:#eee; color:#888; }
+  .sub { color:#777; font-size: 12px; margin-top:4px; font-family: Helvetica, Arial, sans-serif; }
+  .att { color:#a46a00; }
+  code { font-family: Menlo, Consolas, monospace; background:#eef1f6; color:#173b63;
+         padding: 1px 5px; border-radius: 4px; font-size: 12.5px; }
+  .disc { background: var(--soft); border-left: 4px solid var(--acc); padding: 14px 18px;
+          font-size: 13.5px; line-height:1.6; color:#333; margin-top: 40px; }
+  footer { color:#888; font-size: 12.5px; margin-top: 26px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Universal Mixup Loss: Audio Demonstrations</h1>
+  <p>Listening examples for <em>&ldquo;Universal Mixup Loss: Training Audio Autoencoders to Decode the
+     Positive-Weight Mixing Cone&rdquo;</em>. Four autoencoders are compared on identical clips at
+     44.1&nbsp;kHz: <b>Universal Mixup (ours)</b>, <b>SAME-L</b> (production),
+     <b>Lin-CAE</b> (linear-consistency baseline), and <b>DAC</b> (44&nbsp;kHz codec).</p>
+  <p>All operations are performed <b>in latent space only</b> and then decoded: reconstruction
+     <code>D(E(x))</code>, interpolation <code>D(w1(&alpha;)&middot;z_A + w2(&alpha;)&middot;z_B)</code>,
+     and algebraic separation <code>D(z_mix &minus; z_other)</code>. The reference in every
+     experiment is the corresponding <b>audio-domain</b> operation. Sections 1&ndash;3 are presented
+     <b>without scores</b>, so you can judge by ear; in Section 4 the number under each player is
+     the SI-SDR of exactly the audio you hear (scale-invariant, dB).</p>
+</header>
+<main>
+
+<h2><span class="num">1.</span>Audio reconstruction (control)</h2>
+<p class="proto">Sanity anchor: every model encodes and decodes the clip (MUSDB18-HQ, 2&nbsp;s) without any latent arithmetic. The baselines are competent codecs, which is what makes the algebraic differences below meaningful.</p>
+<table><tr><th>Clip</th><th>Ground truth</th><th>Universal Mixup (Ours)</th><th>SAME-L</th><th>Lin-CAE</th><th>DAC (44 kHz)</th></tr>
+<tr><td class='rowhead'>train__Aimee Norwich - Child<div class='sub'>bass</div></td>
+<td><audio controls preload="none" src="audio/reconstruction/recon_bass/ground_truth.wav"></audio></td>
+<td><audio controls preload="none" src="audio/reconstruction/recon_bass/univ.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/reconstruction/recon_bass/same_l.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/reconstruction/recon_bass/lin_cae.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/reconstruction/recon_bass/dac.wav"></audio><div class="badges"></div></td>
+</tr>
+<tr><td class='rowhead'>train__Hezekiah Jones - Borrowed Heart<div class='sub'>vocals</div></td>
+<td><audio controls preload="none" src="audio/reconstruction/recon_vocals/ground_truth.wav"></audio></td>
+<td><audio controls preload="none" src="audio/reconstruction/recon_vocals/univ.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/reconstruction/recon_vocals/same_l.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/reconstruction/recon_vocals/lin_cae.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/reconstruction/recon_vocals/dac.wav"></audio><div class="badges"></div></td>
+</tr>
+</table>
+<h2><span class="num">2.</span>Linear interpolation (lerp)</h2>
+<p class="proto">Latent-space crossfade <code>D((1&minus;&alpha;)&middot;z_A + &alpha;&middot;z_B)</code> compared against the audio-domain crossfade of the same stems. Each file sweeps &alpha; = 0 &rarr; 1 in 9 steps (2&nbsp;s per step, 0.2&nbsp;s of silence between steps), so you hear the entire path. The mid-path behaviour is where decoders without cone supervision break down. Clips: MUSDB18-HQ, 2&nbsp;s.</p>
+<table><tr><th>Crossfade</th><th>Audio-domain ideal</th><th>Universal Mixup (Ours)</th><th>SAME-L</th><th>Lin-CAE</th><th>DAC (44 kHz)</th></tr>
+<tr><td class='rowhead'>train__Celestial Shore - Die For Us<div class='sub'>bass &rarr; other</div></td>
+<td><audio controls preload="none" src="audio/interpolation/lerp/lerp_bass_other/ideal.wav"></audio></td>
+<td><audio controls preload="none" src="audio/interpolation/lerp/lerp_bass_other/univ.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/lerp/lerp_bass_other/same_l.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/lerp/lerp_bass_other/lin_cae.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/lerp/lerp_bass_other/dac.wav"></audio><div class="badges"></div></td>
+</tr>
+<tr><td class='rowhead'>train__Leaf - Summerghost<div class='sub'>bass &rarr; vocals</div></td>
+<td><audio controls preload="none" src="audio/interpolation/lerp/lerp_bass_vocals/ideal.wav"></audio></td>
+<td><audio controls preload="none" src="audio/interpolation/lerp/lerp_bass_vocals/univ.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/lerp/lerp_bass_vocals/same_l.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/lerp/lerp_bass_vocals/lin_cae.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/lerp/lerp_bass_vocals/dac.wav"></audio><div class="badges"></div></td>
+</tr>
+</table>
+<h2><span class="num">3.</span>Trigonometric interpolation (constant-power)</h2>
+<p class="proto">Latent-space crossfade <code>D(cos(&alpha;&pi;/2)&middot;z_A + sin(&alpha;&pi;/2)&middot;z_B)</code> compared against the audio-domain crossfade of the same stems (different stem pairs than Section 2, so both laws are heard on fresh content). Each file sweeps &alpha; = 0 &rarr; 1 in 9 steps (2&nbsp;s per step, 0.2&nbsp;s of silence between steps), so you hear the entire path. The mid-path behaviour is where decoders without cone supervision break down. Clips: MUSDB18-HQ, 2&nbsp;s.</p>
+<table><tr><th>Crossfade</th><th>Audio-domain ideal</th><th>Universal Mixup (Ours)</th><th>SAME-L</th><th>Lin-CAE</th><th>DAC (44 kHz)</th></tr>
+<tr><td class='rowhead'>train__Grants - PunchDrunk<div class='sub'>bass &rarr; other</div></td>
+<td><audio controls preload="none" src="audio/interpolation/trig/trig_bass_other/ideal.wav"></audio></td>
+<td><audio controls preload="none" src="audio/interpolation/trig/trig_bass_other/univ.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/trig/trig_bass_other/same_l.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/trig/trig_bass_other/lin_cae.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/trig/trig_bass_other/dac.wav"></audio><div class="badges"></div></td>
+</tr>
+<tr><td class='rowhead'>train__St Vitus - Word Gets Around<div class='sub'>drums &rarr; other</div></td>
+<td><audio controls preload="none" src="audio/interpolation/trig/trig_drums_other/ideal.wav"></audio></td>
+<td><audio controls preload="none" src="audio/interpolation/trig/trig_drums_other/univ.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/trig/trig_drums_other/same_l.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/trig/trig_drums_other/lin_cae.wav"></audio><div class="badges"></div></td>
+<td><audio controls preload="none" src="audio/interpolation/trig/trig_drums_other/dac.wav"></audio><div class="badges"></div></td>
+</tr>
+</table>
+<h2><span class="num">4.</span>Algebraic source separation (in-distribution synthetic mixtures)</h2>
+<p class="proto">Mixtures are built <b>artificially from the autoencoders&rsquo; own training corpus</b> (VCTK voice + FSD50K/FMA interference, natural raw sums, no renormalisation): <code>mix = voice + other</code>. The voice is then extracted <b>without any separator network</b> by pure latent algebra, <code>D(z_mix &minus; z_other)</code> (oracle access to the interfering stem&rsquo;s code, as in the paper&rsquo;s in-distribution protocol). Under each model&rsquo;s separation we also provide its own <b>reconstruction ceiling</b>, <code>D(E(voice))</code>, which shows that the baselines&rsquo; failure is <em>algebraic</em>, not a codec-quality artifact: their ceilings are fine, their subtractions are not.</p>
+<table><tr><th>Case</th><th>Mixture</th><th>Voice (ground truth)</th><th>Universal Mixup (Ours)</th><th>SAME-L</th><th>Lin-CAE</th><th>DAC (44 kHz)</th></tr>
+<tr><td class='rowhead'>voice + music (FMA)<div class='sub'>interference: fma_small__065_065234</div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_1/mixture.wav"></audio></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_1/ground_truth.wav"></audio></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_1/univ.wav"></audio><div class="badges"><span class="badge best">+39.17 dB</span></div><div class="sub">ceiling (own recon): +40.51 dB <audio controls preload="none" src="audio/separation/sep_synth_1/univ_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_1/same_l.wav"></audio><div class="badges"><span class="badge ">+5.92 dB</span></div><div class="sub">ceiling (own recon): +21.66 dB <audio controls preload="none" src="audio/separation/sep_synth_1/same_l_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_1/lin_cae.wav"></audio><div class="badges"><span class="badge ">+3.49 dB</span></div><div class="sub">ceiling (own recon): +5.25 dB <audio controls preload="none" src="audio/separation/sep_synth_1/lin_cae_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_1/dac.wav"></audio><div class="badges"><span class="badge ">+4.33 dB</span> <span class="att" title="the model output was dangerously loud; attenuated for safe listening (the level failure is part of the result)">&#9888; volume reduced &times;0.87</span></div><div class="sub">ceiling (own recon): +16.99 dB <audio controls preload="none" src="audio/separation/sep_synth_1/dac_ceiling.wav"></audio></div></td>
+</tr>
+<tr><td class='rowhead'>voice + music (FMA)<div class='sub'>interference: fma_small__110_110629</div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_2/mixture.wav"></audio></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_2/ground_truth.wav"></audio></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_2/univ.wav"></audio><div class="badges"><span class="badge best">+32.99 dB</span></div><div class="sub">ceiling (own recon): +35.80 dB <audio controls preload="none" src="audio/separation/sep_synth_2/univ_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_2/same_l.wav"></audio><div class="badges"><span class="badge ">+8.02 dB</span></div><div class="sub">ceiling (own recon): +22.61 dB <audio controls preload="none" src="audio/separation/sep_synth_2/same_l_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_2/lin_cae.wav"></audio><div class="badges"><span class="badge ">+6.00 dB</span></div><div class="sub">ceiling (own recon): +7.58 dB <audio controls preload="none" src="audio/separation/sep_synth_2/lin_cae_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_2/dac.wav"></audio><div class="badges"><span class="badge ">+5.94 dB</span> <span class="att" title="the model output was dangerously loud; attenuated for safe listening (the level failure is part of the result)">&#9888; volume reduced &times;0.65</span></div><div class="sub">ceiling (own recon): +18.35 dB <audio controls preload="none" src="audio/separation/sep_synth_2/dac_ceiling.wav"></audio></div></td>
+</tr>
+<tr><td class='rowhead'>voice + sound event (FSD50K)<div class='sub'>interference: FSD50K.dev_audio__121477</div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_3/mixture.wav"></audio></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_3/ground_truth.wav"></audio></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_3/univ.wav"></audio><div class="badges"><span class="badge best">+29.99 dB</span></div><div class="sub">ceiling (own recon): +30.01 dB <audio controls preload="none" src="audio/separation/sep_synth_3/univ_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_3/same_l.wav"></audio><div class="badges"><span class="badge ">+6.38 dB</span></div><div class="sub">ceiling (own recon): +19.74 dB <audio controls preload="none" src="audio/separation/sep_synth_3/same_l_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_3/lin_cae.wav"></audio><div class="badges"><span class="badge ">+5.96 dB</span></div><div class="sub">ceiling (own recon): +7.15 dB <audio controls preload="none" src="audio/separation/sep_synth_3/lin_cae_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_3/dac.wav"></audio><div class="badges"><span class="badge bad">-3.47 dB</span> <span class="att" title="the model output was dangerously loud; attenuated for safe listening (the level failure is part of the result)">&#9888; volume reduced &times;0.82</span></div><div class="sub">ceiling (own recon): +17.35 dB <audio controls preload="none" src="audio/separation/sep_synth_3/dac_ceiling.wav"></audio></div></td>
+</tr>
+</table>
+
+<div class="disc">
+<b>Protocol &amp; selection.</b> Reconstruction and interpolation clips are 2&nbsp;s mono chunks of
+MUSDB18-HQ at 44.1&nbsp;kHz.
+Separation mixtures are built from our autoencoder's training corpus (VCTK voice +
+FSD50K/FMA interference, raw sums). All models run on
+identical clips; every latent operation is followed by that model&rsquo;s own decoder. Displayed
+cases were selected from the full quantitative evaluations reported in the paper. All files are peak-normalised to 0.95 when
+converted to 16-bit PCM &mdash; a standard, inaudible step (the corpus is peak-normalised and raw-sum
+mixtures exceed full scale), applied identically to references and model outputs. The only flagged
+case is an actual output-level failure: &ldquo;&#9888; volume reduced&rdquo; marks a model whose
+separation output was dangerously loud and was attenuated for safe listening. Lin-CAE decodes stochastically; a fixed decode seed is used
+for reproducibility.
+</div>
+<footer>Anonymous demo page for ICLR 2027. Audio: 16-bit PCM WAV, 44.1 kHz.</footer>
+<script>
+(function () {
+  // Only one player at a time: starting an audio stops every other one.
+  var players = Array.prototype.slice.call(document.querySelectorAll('audio'));
+  players.forEach(function (p) {
+    p.addEventListener('play', function () {
+      players.forEach(function (q) {
+        if (q !== p && !q.paused) { q.pause(); }
+      });
+    });
+  });
+})();
+</script>
+</main></body></html>
