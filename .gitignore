@@ -49,16 +49,16 @@ checkpoints/
 # Generated evaluation outputs (re-run the eval scripts to regenerate)
 *.bak_*
 *.csv
-toy_evaluation/*.json
-toy_evaluation/**/*.json
-toy_evaluation/eval_all/
-toy_evaluation/eval_all_*/
-toy_evaluation/eval_attention/
-toy_evaluation/eval_deep_additivity/
-toy_evaluation/eval_enc_alignment_dist/
-toy_evaluation/separation_compare/chunks/
-toy_evaluation/audio_demo/
-toy_evaluation/audio_mixes/
+evaluation/*.json
+evaluation/**/*.json
+evaluation/eval_all/
+evaluation/eval_all_*/
+evaluation/eval_attention/
+evaluation/eval_deep_additivity/
+evaluation/eval_enc_alignment_dist/
+evaluation/separation_compare/chunks/
+evaluation/audio_demo/
+evaluation/audio_mixes/
 
 # OS / editor noise
 .DS_Store
