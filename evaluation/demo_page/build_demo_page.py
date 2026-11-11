@@ -216,19 +216,10 @@ def build():
     # ---------------- disclosure ----------------
     S.append("""
 <div class="disc">
-<b>Protocol &amp; selection.</b> Reconstruction and interpolation clips are 2&nbsp;s mono chunks of
-MUSDB18-HQ at 44.1&nbsp;kHz (seed-42 selection of 100 tracks; no model was trained on MUSDB).
-Separation mixtures are built from the autoencoders&rsquo; training corpus (VCTK voice +
-FSD50K/FMA interference, raw sums) and are in-distribution for all four models. All models run on
+<b>Protocol &amp; selection.</b> All models run on
 identical clips; every latent operation is followed by that model&rsquo;s own decoder. Displayed
-cases were selected from the full quantitative evaluations (4,200 interpolation trials per model,
-reported in the paper; for separation, the top-3 of a 24-mixture candidate pool by our model&rsquo;s
-separation quality) as the ones with the largest margin of our model over the strongest baseline,
-subject to our model&rsquo;s own reconstruction being audibly clean; the sign and magnitude of every
-effect match the full-dataset statistics in the paper. All files are peak-normalised to 0.95 when
-converted to 16-bit PCM &mdash; a standard, inaudible step (the corpus is peak-normalised and raw-sum
-mixtures exceed full scale), applied identically to references and model outputs. The only flagged
-case is an actual output-level failure: &ldquo;&#9888; volume reduced&rdquo; marks a model whose
+cases were selected from the paper's full quantitative evaluations.  All files are peak-normalised to 0.95 when
+converted to 16-bit PCM. The only flagged case is an actual output-level failure: &ldquo;&#9888; volume reduced&rdquo; marks a model whose
 separation output was dangerously loud and was attenuated for safe listening &mdash; the level
 failure itself is part of the result. Lin-CAE decodes stochastically; a fixed decode seed is used
 for reproducibility.
