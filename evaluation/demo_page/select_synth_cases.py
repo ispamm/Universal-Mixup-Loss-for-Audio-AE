@@ -15,7 +15,7 @@ Only the universal model is scored here (selection criterion); the baselines
 are evaluated when the demo audio is generated -- their latent algebra fails
 regardless of the clip, and their per-file SI-SDR is recorded then.
 
-    .venv/bin/python evaluation/demo_page/select_synth_cases.py --device cuda:1
+    .venv/bin/python toy_evaluation/demo_page/select_synth_cases.py --device cuda:1
 """
 from __future__ import annotations
 import argparse, json, sys
@@ -29,10 +29,10 @@ _REPO_ROOT = _THIS_FILE.parents[2]
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
-from evaluation.data import load_stem_clip  # noqa: E402
-from training.train_fm_pilot import collect_training_stems  # noqa: E402
-from evaluation.exp3_interp_laws import load_adapter  # noqa: E402
-from evaluation.separation_compare.separation_metrics import si_sdr  # noqa: E402
+from toy_evaluation.data import load_stem_clip  # noqa: E402
+from toy_training.train_fm_pilot import collect_training_stems  # noqa: E402
+from toy_evaluation.exp3_interp_laws import load_adapter  # noqa: E402
+from toy_evaluation.separation_compare.separation_metrics import si_sdr  # noqa: E402
 
 SR = 44100
 CLIP = 2.0

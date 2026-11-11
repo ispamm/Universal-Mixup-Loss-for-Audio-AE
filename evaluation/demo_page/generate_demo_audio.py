@@ -3,7 +3,7 @@
 Experiment 4 (rebuttal, R3 W3 & Q3): generate the demo-page audio.
 
 For ONE model at a time (the four adapters of exp3_interp_laws.py), this
-regenerates the audio of the selected demo cases (evaluation/demo_page/
+regenerates the audio of the selected demo cases (toy_evaluation/demo_page/
 cases.json) and writes 16-bit PCM wavs:
 
   reconstruction : decode(encode(stem))                       vs ground truth
@@ -22,10 +22,10 @@ in the manifest and flagged on the page, since an out-of-control output level
 is itself a failure mode); reference files are only peak-guarded at 0.95.
 
 Run once per model, in the right environment (see cases.json "env"):
-    .venv/bin/python      evaluation/demo_page/generate_demo_audio.py --model univ     --device cuda:1
-    .venv/bin/python      evaluation/demo_page/generate_demo_audio.py --model same_l   --device cuda:1
-    cae_env python        evaluation/demo_page/generate_demo_audio.py --model lin_cae  --device cuda:1
-    .venv-dac/bin/python  evaluation/demo_page/generate_demo_audio.py --model dac     --device cuda:1
+    .venv/bin/python      toy_evaluation/demo_page/generate_demo_audio.py --model univ     --device cuda:1
+    .venv/bin/python      toy_evaluation/demo_page/generate_demo_audio.py --model same_l   --device cuda:1
+    cae_env python        toy_evaluation/demo_page/generate_demo_audio.py --model lin_cae  --device cuda:1
+    .venv-dac/bin/python  toy_evaluation/demo_page/generate_demo_audio.py --model dac     --device cuda:1
 """
 from __future__ import annotations
 import argparse, json, sys, wave
@@ -39,9 +39,9 @@ _REPO_ROOT = _THIS_FILE.parents[2]
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
-from evaluation.data import load_stem_clip  # noqa: E402
-from evaluation.exp3_interp_laws import load_adapter, law_weights  # noqa: E402
-from evaluation.separation_compare.separation_metrics import si_sdr  # noqa: E402
+from toy_evaluation.data import load_stem_clip  # noqa: E402
+from toy_evaluation.exp3_interp_laws import load_adapter, law_weights  # noqa: E402
+from toy_evaluation.separation_compare.separation_metrics import si_sdr  # noqa: E402
 
 SR = 44100
 CLIP_SECONDS = 2.0
@@ -158,7 +158,7 @@ def main():
     # ------------------- reconstruction -------------------
     for c in cases["reconstruction"]:
         idx = int(c["track"][:3])
-        x = np.load(_REPO_ROOT / "evaluation/separation_compare/chunks"
+        x = np.load(_REPO_ROOT / "toy_evaluation/separation_compare/chunks"
                     / f"{idx:03d}" / f"{c['stem']}44.npy").astype(np.float32)
         z = adapter.encode(x)
         rec = adapter.decode(z, len(x), seed=DECODE_SEED)
@@ -170,7 +170,7 @@ def main():
     for law in ("lerp", "trig"):
         for c in cases["interpolation"][law]:
             idx = int(c["track"][:3])
-            chunks = _REPO_ROOT / "evaluation/separation_compare/chunks" / f"{idx:03d}"
+            chunks = _REPO_ROOT / "toy_evaluation/separation_compare/chunks" / f"{idx:03d}"
             a = np.load(chunks / f"{c['stem_a']}44.npy").astype(np.float32)
             b = np.load(chunks / f"{c['stem_b']}44.npy").astype(np.float32)
             a, b = common(a, b)

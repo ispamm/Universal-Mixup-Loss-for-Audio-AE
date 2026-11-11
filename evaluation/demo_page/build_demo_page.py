@@ -7,7 +7,7 @@ and emits a self-contained HTML page (no external dependencies; audio via
 relative paths) that a reviewer can open directly or that can be dropped into
 the anonymous repository / hosted statically.
 
-    .venv/bin/python evaluation/demo_page/build_demo_page.py
+    .venv/bin/python toy_evaluation/demo_page/build_demo_page.py
 """
 from __future__ import annotations
 import json
@@ -15,7 +15,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 MODELS = [
-    ("univ", "Universal Mixup (Ours)", "transformer autoencoder, 44.1 kHz, cone-supervised"),
+    ("univ", "Universal Mixup (Ours)", "toy transformer, 44.1 kHz, cone-supervised"),
     ("same_l", "SAME-L", "production SAME, no additivity training"),
     ("lin_cae", "Lin-CAE", "linear-consistency autoencoder (Torres et al.)"),
     ("dac", "DAC (44 kHz)", "descript audio codec, RVQ-quantized"),

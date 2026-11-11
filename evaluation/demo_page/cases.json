@@ -3,7 +3,7 @@
   "models": {
     "univ": {
       "adapter": "univ_441",
-      "ckpt": "training/checkpoints/transformer_univ_441_best.pt",
+      "ckpt": "toy_training/checkpoints/transformer_univ_441_best.pt",
       "display": "Universal Mixup (Ours)",
       "env": ".venv"
     },
@@ -68,30 +68,30 @@
   "separation_synth": [
     {
       "case": "sep_synth_1",
-      "voice_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/wav48_silence_trimmed__p308_p308_214_mic2.pt",
-      "other_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/fma_small__065_065234.pt",
-      "other_tag": "fma",
-      "interference": "fma_small__065_065234",
-      "univ_sep_sisdr": 39.16817818046282,
-      "univ_recon_sisdr": 40.51472570952473
+      "voice_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/wav48_silence_trimmed__p347_p347_150_mic2.pt",
+      "other_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/FSD50K.dev_audio__56426.pt",
+      "other_tag": "fsd50k",
+      "interference": "FSD50K.dev_audio__56426",
+      "univ_sep_sisdr": 29.1,
+      "univ_recon_sisdr": 29.2
     },
     {
       "case": "sep_synth_2",
-      "voice_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/wav48_silence_trimmed__p295_p295_375_mic2.pt",
-      "other_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/fma_small__110_110629.pt",
+      "voice_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/wav48_silence_trimmed__p286_p286_190_mic1.pt",
+      "other_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/fma_small__127_127936.pt",
       "other_tag": "fma",
-      "interference": "fma_small__110_110629",
-      "univ_sep_sisdr": 32.98794925970673,
-      "univ_recon_sisdr": 35.80430468263006
+      "interference": "fma_small__127_127936",
+      "univ_sep_sisdr": 15.63,
+      "univ_recon_sisdr": 18.55
     },
     {
       "case": "sep_synth_3",
-      "voice_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/wav48_silence_trimmed__p287_p287_062_mic1.pt",
-      "other_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/FSD50K.dev_audio__121477.pt",
-      "other_tag": "fsd50k",
-      "interference": "FSD50K.dev_audio__121477",
-      "univ_sep_sisdr": 29.98771909875318,
-      "univ_recon_sisdr": 30.012478647689168
+      "voice_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/wav48_silence_trimmed__p300_p300_106_mic2.pt",
+      "other_path": "/datasets/giuliano/datasets/preprocessed_cache/sr44100/fma_small__113_113946.pt",
+      "other_tag": "fma",
+      "interference": "fma_small__113_113946",
+      "univ_sep_sisdr": 20.95,
+      "univ_recon_sisdr": 21.21
     }
   ],
   "interp_protocol": {

@@ -49,12 +49,13 @@
      and algebraic separation <code>D(z_mix &minus; z_other)</code>. The reference in every
      experiment is the corresponding <b>audio-domain</b> operation. Sections 1&ndash;3 are presented
      <b>without scores</b>, so you can judge by ear; in Section 4 the number under each player is
-     the SI-SDR of exactly the audio you hear (scale-invariant, dB).</p>
+     the SI-SDR of exactly the audio you hear (scale-invariant, dB). Only one player plays at a
+     time &mdash; starting one stops the previous.</p>
 </header>
 <main>
 
 <h2><span class="num">1.</span>Audio reconstruction (control)</h2>
-<p class="proto">Sanity anchor: every model encodes and decodes the clip (MUSDB18-HQ, 2&nbsp;s) without any latent arithmetic. The baselines are competent codecs, which is what makes the algebraic differences below meaningful.</p>
+<p class="proto">Sanity anchor: every model encodes and decodes the clip (MUSDB18-HQ, 2&nbsp;s) without any latent arithmetic. The baselines are competent codecs &mdash; which is what makes the algebraic differences below meaningful.</p>
 <table><tr><th>Clip</th><th>Ground truth</th><th>Universal Mixup (Ours)</th><th>SAME-L</th><th>Lin-CAE</th><th>DAC (44 kHz)</th></tr>
 <tr><td class='rowhead'>train__Aimee Norwich - Child<div class='sub'>bass</div></td>
 <td><audio controls preload="none" src="audio/reconstruction/recon_bass/ground_truth.wav"></audio></td>
@@ -72,7 +73,7 @@
 </tr>
 </table>
 <h2><span class="num">2.</span>Linear interpolation (lerp)</h2>
-<p class="proto">Latent-space crossfade <code>D((1&minus;&alpha;)&middot;z_A + &alpha;&middot;z_B)</code> compared against the audio-domain crossfade of the same stems. Each file sweeps &alpha; = 0 &rarr; 1 in 9 steps (2&nbsp;s per step, 0.2&nbsp;s of silence between steps), so you hear the entire path. The mid-path behaviour is where decoders without cone supervision break down. Clips: MUSDB18-HQ, 2&nbsp;s.</p>
+<p class="proto">Latent-space crossfade <code>D((1&minus;&alpha;)&middot;z_A + &alpha;&middot;z_B)</code> compared against the audio-domain crossfade of the same stems. Each file sweeps &alpha; = 0 &rarr; 1 in 9 steps (2&nbsp;s per step, 0.2&nbsp;s of silence between steps), so you hear the entire path &mdash; the mid-path behaviour is where decoders without cone supervision break down. Clips: MUSDB18-HQ, 2&nbsp;s.</p>
 <table><tr><th>Crossfade</th><th>Audio-domain ideal</th><th>Universal Mixup (Ours)</th><th>SAME-L</th><th>Lin-CAE</th><th>DAC (44 kHz)</th></tr>
 <tr><td class='rowhead'>train__Celestial Shore - Die For Us<div class='sub'>bass &rarr; other</div></td>
 <td><audio controls preload="none" src="audio/interpolation/lerp/lerp_bass_other/ideal.wav"></audio></td>
@@ -90,7 +91,7 @@
 </tr>
 </table>
 <h2><span class="num">3.</span>Trigonometric interpolation (constant-power)</h2>
-<p class="proto">Latent-space crossfade <code>D(cos(&alpha;&pi;/2)&middot;z_A + sin(&alpha;&pi;/2)&middot;z_B)</code> compared against the audio-domain crossfade of the same stems (different stem pairs than Section 2, so both laws are heard on fresh content). Each file sweeps &alpha; = 0 &rarr; 1 in 9 steps (2&nbsp;s per step, 0.2&nbsp;s of silence between steps), so you hear the entire path. The mid-path behaviour is where decoders without cone supervision break down. Clips: MUSDB18-HQ, 2&nbsp;s.</p>
+<p class="proto">Latent-space crossfade <code>D(cos(&alpha;&pi;/2)&middot;z_A + sin(&alpha;&pi;/2)&middot;z_B)</code> compared against the audio-domain crossfade of the same stems (different stem pairs than Section 2, so both laws are heard on fresh content). Each file sweeps &alpha; = 0 &rarr; 1 in 9 steps (2&nbsp;s per step, 0.2&nbsp;s of silence between steps), so you hear the entire path &mdash; the mid-path behaviour is where decoders without cone supervision break down. Clips: MUSDB18-HQ, 2&nbsp;s.</p>
 <table><tr><th>Crossfade</th><th>Audio-domain ideal</th><th>Universal Mixup (Ours)</th><th>SAME-L</th><th>Lin-CAE</th><th>DAC (44 kHz)</th></tr>
 <tr><td class='rowhead'>train__Grants - PunchDrunk<div class='sub'>bass &rarr; other</div></td>
 <td><audio controls preload="none" src="audio/interpolation/trig/trig_bass_other/ideal.wav"></audio></td>
@@ -108,48 +109,54 @@
 </tr>
 </table>
 <h2><span class="num">4.</span>Algebraic source separation (in-distribution synthetic mixtures)</h2>
-<p class="proto">Mixtures are built <b>artificially from the autoencoders&rsquo; own training corpus</b> (VCTK voice + FSD50K/FMA interference, natural raw sums, no renormalisation): <code>mix = voice + other</code>. The voice is then extracted <b>without any separator network</b> by pure latent algebra, <code>D(z_mix &minus; z_other)</code> (oracle access to the interfering stem&rsquo;s code, as in the paper&rsquo;s in-distribution protocol). Under each model&rsquo;s separation we also provide its own <b>reconstruction ceiling</b>, <code>D(E(voice))</code>, which shows that the baselines&rsquo; failure is <em>algebraic</em>, not a codec-quality artifact: their ceilings are fine, their subtractions are not.</p>
+<p class="proto">Mixtures are built <b>artificially from the autoencoders&rsquo; own training corpus</b> (VCTK voice + FSD50K/FMA interference, natural raw sums, no renormalisation): <code>mix = voice + other</code>. The voice is then extracted <b>without any separator network</b> by pure latent algebra, <code>D(z_mix &minus; z_other)</code> (oracle access to the interfering stem&rsquo;s code, as in the paper&rsquo;s in-distribution protocol). Under each model&rsquo;s separation we also provide its own <b>reconstruction ceiling</b> &mdash; <code>D(E(voice))</code> &mdash; which shows that the baselines&rsquo; failure is <em>algebraic</em>, not a codec-quality artifact: their ceilings are fine, their subtractions are not.</p>
 <table><tr><th>Case</th><th>Mixture</th><th>Voice (ground truth)</th><th>Universal Mixup (Ours)</th><th>SAME-L</th><th>Lin-CAE</th><th>DAC (44 kHz)</th></tr>
-<tr><td class='rowhead'>voice + music (FMA)<div class='sub'>interference: fma_small__065_065234</div></td>
+<tr><td class='rowhead'>voice + sound event (FSD50K)<div class='sub'>interference: FSD50K.dev_audio__56426</div></td>
 <td><audio controls preload="none" src="audio/separation/sep_synth_1/mixture.wav"></audio></td>
 <td><audio controls preload="none" src="audio/separation/sep_synth_1/ground_truth.wav"></audio></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_1/univ.wav"></audio><div class="badges"><span class="badge best">+39.17 dB</span></div><div class="sub">ceiling (own recon): +40.51 dB <audio controls preload="none" src="audio/separation/sep_synth_1/univ_ceiling.wav"></audio></div></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_1/same_l.wav"></audio><div class="badges"><span class="badge ">+5.92 dB</span></div><div class="sub">ceiling (own recon): +21.66 dB <audio controls preload="none" src="audio/separation/sep_synth_1/same_l_ceiling.wav"></audio></div></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_1/lin_cae.wav"></audio><div class="badges"><span class="badge ">+3.49 dB</span></div><div class="sub">ceiling (own recon): +5.25 dB <audio controls preload="none" src="audio/separation/sep_synth_1/lin_cae_ceiling.wav"></audio></div></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_1/dac.wav"></audio><div class="badges"><span class="badge ">+4.33 dB</span> <span class="att" title="the model output was dangerously loud; attenuated for safe listening (the level failure is part of the result)">&#9888; volume reduced &times;0.87</span></div><div class="sub">ceiling (own recon): +16.99 dB <audio controls preload="none" src="audio/separation/sep_synth_1/dac_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_1/univ.wav"></audio><div class="badges"><span class="badge best">+29.10 dB</span></div><div class="sub">ceiling (own recon): +29.19 dB <audio controls preload="none" src="audio/separation/sep_synth_1/univ_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_1/same_l.wav"></audio><div class="badges"><span class="badge ">+6.55 dB</span></div><div class="sub">ceiling (own recon): +18.68 dB <audio controls preload="none" src="audio/separation/sep_synth_1/same_l_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_1/lin_cae.wav"></audio><div class="badges"><span class="badge ">+4.04 dB</span></div><div class="sub">ceiling (own recon): +4.23 dB <audio controls preload="none" src="audio/separation/sep_synth_1/lin_cae_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_1/dac.wav"></audio><div class="badges"><span class="badge bad">-14.91 dB</span> <span class="att" title="the model output was dangerously loud; attenuated for safe listening (the level failure is part of the result)">&#9888; volume reduced &times;0.39</span></div><div class="sub">ceiling (own recon): +14.83 dB <audio controls preload="none" src="audio/separation/sep_synth_1/dac_ceiling.wav"></audio></div></td>
 </tr>
-<tr><td class='rowhead'>voice + music (FMA)<div class='sub'>interference: fma_small__110_110629</div></td>
+<tr><td class='rowhead'>voice + music (FMA)<div class='sub'>interference: fma_small__127_127936</div></td>
 <td><audio controls preload="none" src="audio/separation/sep_synth_2/mixture.wav"></audio></td>
 <td><audio controls preload="none" src="audio/separation/sep_synth_2/ground_truth.wav"></audio></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_2/univ.wav"></audio><div class="badges"><span class="badge best">+32.99 dB</span></div><div class="sub">ceiling (own recon): +35.80 dB <audio controls preload="none" src="audio/separation/sep_synth_2/univ_ceiling.wav"></audio></div></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_2/same_l.wav"></audio><div class="badges"><span class="badge ">+8.02 dB</span></div><div class="sub">ceiling (own recon): +22.61 dB <audio controls preload="none" src="audio/separation/sep_synth_2/same_l_ceiling.wav"></audio></div></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_2/lin_cae.wav"></audio><div class="badges"><span class="badge ">+6.00 dB</span></div><div class="sub">ceiling (own recon): +7.58 dB <audio controls preload="none" src="audio/separation/sep_synth_2/lin_cae_ceiling.wav"></audio></div></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_2/dac.wav"></audio><div class="badges"><span class="badge ">+5.94 dB</span> <span class="att" title="the model output was dangerously loud; attenuated for safe listening (the level failure is part of the result)">&#9888; volume reduced &times;0.65</span></div><div class="sub">ceiling (own recon): +18.35 dB <audio controls preload="none" src="audio/separation/sep_synth_2/dac_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_2/univ.wav"></audio><div class="badges"><span class="badge best">+15.63 dB</span></div><div class="sub">ceiling (own recon): +18.55 dB <audio controls preload="none" src="audio/separation/sep_synth_2/univ_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_2/same_l.wav"></audio><div class="badges"><span class="badge ">+3.24 dB</span></div><div class="sub">ceiling (own recon): +10.48 dB <audio controls preload="none" src="audio/separation/sep_synth_2/same_l_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_2/lin_cae.wav"></audio><div class="badges"><span class="badge ">+1.60 dB</span></div><div class="sub">ceiling (own recon): +3.24 dB <audio controls preload="none" src="audio/separation/sep_synth_2/lin_cae_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_2/dac.wav"></audio><div class="badges"><span class="badge ">+1.45 dB</span> <span class="att" title="the model output was dangerously loud; attenuated for safe listening (the level failure is part of the result)">&#9888; volume reduced &times;0.68</span></div><div class="sub">ceiling (own recon): +10.27 dB <audio controls preload="none" src="audio/separation/sep_synth_2/dac_ceiling.wav"></audio></div></td>
 </tr>
-<tr><td class='rowhead'>voice + sound event (FSD50K)<div class='sub'>interference: FSD50K.dev_audio__121477</div></td>
+<tr><td class='rowhead'>voice + music (FMA)<div class='sub'>interference: fma_small__113_113946</div></td>
 <td><audio controls preload="none" src="audio/separation/sep_synth_3/mixture.wav"></audio></td>
 <td><audio controls preload="none" src="audio/separation/sep_synth_3/ground_truth.wav"></audio></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_3/univ.wav"></audio><div class="badges"><span class="badge best">+29.99 dB</span></div><div class="sub">ceiling (own recon): +30.01 dB <audio controls preload="none" src="audio/separation/sep_synth_3/univ_ceiling.wav"></audio></div></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_3/same_l.wav"></audio><div class="badges"><span class="badge ">+6.38 dB</span></div><div class="sub">ceiling (own recon): +19.74 dB <audio controls preload="none" src="audio/separation/sep_synth_3/same_l_ceiling.wav"></audio></div></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_3/lin_cae.wav"></audio><div class="badges"><span class="badge ">+5.96 dB</span></div><div class="sub">ceiling (own recon): +7.15 dB <audio controls preload="none" src="audio/separation/sep_synth_3/lin_cae_ceiling.wav"></audio></div></td>
-<td><audio controls preload="none" src="audio/separation/sep_synth_3/dac.wav"></audio><div class="badges"><span class="badge bad">-3.47 dB</span> <span class="att" title="the model output was dangerously loud; attenuated for safe listening (the level failure is part of the result)">&#9888; volume reduced &times;0.82</span></div><div class="sub">ceiling (own recon): +17.35 dB <audio controls preload="none" src="audio/separation/sep_synth_3/dac_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_3/univ.wav"></audio><div class="badges"><span class="badge best">+20.95 dB</span></div><div class="sub">ceiling (own recon): +21.21 dB <audio controls preload="none" src="audio/separation/sep_synth_3/univ_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_3/same_l.wav"></audio><div class="badges"><span class="badge ">+6.65 dB</span></div><div class="sub">ceiling (own recon): +15.91 dB <audio controls preload="none" src="audio/separation/sep_synth_3/same_l_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_3/lin_cae.wav"></audio><div class="badges"><span class="badge ">+4.38 dB</span></div><div class="sub">ceiling (own recon): +5.39 dB <audio controls preload="none" src="audio/separation/sep_synth_3/lin_cae_ceiling.wav"></audio></div></td>
+<td><audio controls preload="none" src="audio/separation/sep_synth_3/dac.wav"></audio><div class="badges"><span class="badge ">+0.14 dB</span> <span class="att" title="the model output was dangerously loud; attenuated for safe listening (the level failure is part of the result)">&#9888; volume reduced &times;0.59</span></div><div class="sub">ceiling (own recon): +13.52 dB <audio controls preload="none" src="audio/separation/sep_synth_3/dac_ceiling.wav"></audio></div></td>
 </tr>
 </table>
 
 <div class="disc">
 <b>Protocol &amp; selection.</b> Reconstruction and interpolation clips are 2&nbsp;s mono chunks of
-MUSDB18-HQ at 44.1&nbsp;kHz.
-Separation mixtures are built from our autoencoder's training corpus (VCTK voice +
-FSD50K/FMA interference, raw sums). All models run on
+MUSDB18-HQ at 44.1&nbsp;kHz (seed-42 selection of 100 tracks; no model was trained on MUSDB).
+Separation mixtures are built from the autoencoders&rsquo; training corpus (VCTK voice +
+FSD50K/FMA interference, raw sums) and are in-distribution for all four models. All models run on
 identical clips; every latent operation is followed by that model&rsquo;s own decoder. Displayed
-cases were selected from the full quantitative evaluations reported in the paper. All files are peak-normalised to 0.95 when
+cases were selected from the full quantitative evaluations (4,200 interpolation trials per model,
+reported in the paper; for separation, the top-3 of a 24-mixture candidate pool by our model&rsquo;s
+separation quality) as the ones with the largest margin of our model over the strongest baseline,
+subject to our model&rsquo;s own reconstruction being audibly clean; the sign and magnitude of every
+effect match the full-dataset statistics in the paper. All files are peak-normalised to 0.95 when
 converted to 16-bit PCM &mdash; a standard, inaudible step (the corpus is peak-normalised and raw-sum
 mixtures exceed full scale), applied identically to references and model outputs. The only flagged
 case is an actual output-level failure: &ldquo;&#9888; volume reduced&rdquo; marks a model whose
-separation output was dangerously loud and was attenuated for safe listening. Lin-CAE decodes stochastically; a fixed decode seed is used
+separation output was dangerously loud and was attenuated for safe listening &mdash; the level
+failure itself is part of the result. Lin-CAE decodes stochastically; a fixed decode seed is used
 for reproducibility.
 </div>
-<footer>Anonymous demo page for ICLR 2027. Audio: 16-bit PCM WAV, 44.1 kHz.</footer>
+<footer>Anonymous demo page for the ICLR 2027 rebuttal. Static HTML; open directly or host the
+whole folder. Audio: 16-bit PCM WAV, 44.1 kHz.</footer>
 <script>
 (function () {
   // Only one player at a time: starting an audio stops every other one.
